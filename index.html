@@ -1,4 +1,92 @@
-[
+import zipfile
+import os
+
+# مسیر نهایی فایل ZIP
+final_zip_path = "/mnt/data/adviye_sara_complete_final.zip"
+
+# پوشه موقت برای ایجاد فایل‌ها
+temp_folder_final = "/mnt/data/adviye_sara_complete_final"
+os.makedirs(temp_folder_final, exist_ok=True)
+
+# محتوای index.html نسخه کامل
+index_html_final = """<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فروشگاه آنلاین ادویه‌سرا</title>
+<style>
+body { font-family: Arial; margin:0; background:#f2f2f2; }
+header { background:linear-gradient(90deg, #4CAF50,#66bb6a); color:white; text-align:center; padding:20px; font-size:26px; font-weight:bold; }
+.products { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:20px; }
+.product { background:white; border-radius:15px; box-shadow:0 4px 12px rgba(0,0,0,0.15); width:220px; padding:15px; text-align:center; transition: transform 0.2s; }
+.product:hover { transform:translateY(-5px); }
+.product img { width:100%; border-radius:10px; margin-bottom:10px; }
+.product h3 { margin:5px 0; font-size:18px; color:#333; }
+.product p { margin:4px 0; font-size:14px; color:#555; }
+.product input[type="number"] { width:50px; padding:5px; margin-top:5px; border-radius:5px; border:1px solid #ccc; }
+.order-all-btn { display:block; width:220px; margin:20px auto; padding:12px; background:linear-gradient(90deg,#4CAF50,#66bb6a); color:white; font-size:18px; border:none; border-radius:10px; cursor:pointer; transition:background 0.3s; }
+.order-all-btn:hover { background:linear-gradient(90deg,#45a049,#5cae50); }
+@media(max-width:500px){.products{flex-direction:column; align-items:center;} .order-all-btn{width:90%;}}
+</style>
+</head>
+<body>
+
+<header>فروشگاه آنلاین ادویه‌سرا</header>
+
+<div class="products" id="products"></div>
+<button class="order-all-btn" onclick="orderAll()">سفارش همه محصولات</button>
+
+<script>
+var whatsappNumber = "93779369926"; // شماره واتساپ شما
+var products = [];
+
+fetch('products.json')
+  .then(res => res.json())
+  .then(data => {
+    products = data;
+    renderProducts();
+  })
+  .catch(err => console.error("خطا در خواندن JSON:", err));
+
+function renderProducts() {
+  const container = document.getElementById('products');
+  container.innerHTML = '';
+  products.forEach((p,i)=>{
+    const div = document.createElement('div');
+    div.className='product';
+    div.innerHTML = `
+      <img src="${p.image}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>نام کیمیاوی: ${p.chemical}</p>
+      <p>قیمت: ${p.price} افغانی</p>
+      <input type="number" id="qty_${i}" value="0" min="0">
+    `;
+    container.appendChild(div);
+  });
+}
+
+function orderAll() {
+  let items=[];
+  products.forEach((p,i)=>{
+    const qty = document.getElementById(`qty_${i}`).value;
+    if(qty>0) items.push(qty+" عدد "+p.name);
+  });
+  if(items.length===0){
+    alert("لطفاً حداقل یک محصول را انتخاب کنید!");
+    return;
+  }
+  const msg = encodeURIComponent("سلام، می‌خواهم سفارش بدهم:\\n"+items.join("\\n"));
+  window.open("https://wa.me/"+whatsappNumber+"?text="+msg, "_blank");
+}
+</script>
+
+</body>
+</html>
+"""
+
+# محتوای products.json نهایی
+products_json_final = """[
   {
     "name": "Amoxicillin 500mg",
     "chemical": "Amoxicillin Trihydrate",
@@ -29,4 +117,19 @@
     "price": 80,
     "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/ibuprofen.jpg"
   }
-]
+]"""
+
+# ایجاد فایل‌ها در پوشه موقت
+with open(os.path.join(temp_folder_final, "index.html"), "w", encoding="utf-8") as f:
+    f.write(index_html_final)
+
+with open(os.path.join(temp_folder_final, "products.json"), "w", encoding="utf-8") as f:
+    f.write(products_json_final)
+
+# ساخت ZIP نهایی
+with zipfile.ZipFile(final_zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+    for root, dirs, files in os.walk(temp_folder_final):
+        for file in files:
+            zipf.write(os.path.join(root, file), arcname=file)
+
+final_zip_path
