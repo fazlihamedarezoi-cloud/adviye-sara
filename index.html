@@ -1,40 +1,134 @@
-<h2>🧪 محصولات کیمیاوی (صرفاً جهت استعلام)</h2>
-<p style="font-size:14px;color:#555">
-این محصولات فقط جهت معلومات و استعلام ارائه می‌شوند.
-</p>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ادویه‌سرا | محصولات کیمیاوی عمده</title>
+<style>
+body {
+  font-family: sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 10px;
+}
+header {
+  background: #2e7d32;
+  color: white;
+  text-align: center;
+  padding: 20px 10px;
+}
+header h1 { margin: 0; }
+header p { margin: 5px 0 0; font-size: 14px; }
+h2 { text-align: center; color: #2e7d32; margin-top: 20px; }
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+.product {
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.product img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.product h3 { margin: 10px 0 5px; color: #333; }
+.product p { font-size: 14px; color: #666; margin: 5px 0; }
+.product .price { color: #d32f2f; font-weight: bold; margin: 5px 0; }
+.btn {
+  display: block;
+  margin-top: 10px;
+  padding: 10px;
+  background: #25d366;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
+input[type=number] {
+  width: 60px;
+  padding: 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+</style>
+</head>
+<body>
 
+<header>
+  <h1>🌿 ادویه‌سرا</h1>
+  <p>فروش عمده محصولات کیمیاوی برای داروخانه‌ها و مراکز درمانی</p>
+</header>
+
+<h2>🧪 محصولات کیمیاوی</h2>
+
+<div class="products">
+
+<!-- محصول ۱ -->
 <div class="product">
-  <img src="LINK_AMOXICILLIN">
+  <img src="https://via.placeholder.com/300x160.png?text=آموکسی%20سیلین">
   <h3>آموکسی‌سیلین</h3>
-  <p>محصول کیمیاوی – صرفاً جهت معلومات</p>
-  <a class="btn" href="https://wa.me/93779369926?text=سلام%20من%20در%20مورد%20آموکسی‌سیلین%20استعلام%20دارم">
-    استعلام در واتساپ
-  </a>
+  <p>نام تجارتی: Amox</p>
+  <p class="price">قیمت: 100 افغانی / بسته</p>
+  <label>تعداد:</label>
+  <input type="number" id="qty1" value="1" min="1">
+  <a class="btn" href="#" onclick="
+    var qty=document.getElementById('qty1').value;
+    window.open('https://wa.me/93779369926?text=سلام%20🌿%0Aمن%20میخواهم%20'+qty+'%20بسته%20آموکسی‌سیلین%20سفارش%20بدهم%20برای%20داروخانه%20یا%20مرکز%20خودم');
+  ">سفارش در واتساپ</a>
 </div>
 
+<!-- محصول ۲ -->
 <div class="product">
-  <img src="LINK_CIPRO">
+  <img src="https://via.placeholder.com/300x160.png?text=سیپروفلوکساسین">
   <h3>سیپروفلوکساسین</h3>
-  <p>محصول کیمیاوی – صرفاً جهت معلومات</p>
-  <a class="btn" href="https://wa.me/93779369926?text=سلام%20من%20در%20مورد%20سیپروفلوکساسین%20استعلام%20دارم">
-    استعلام در واتساپ
-  </a>
+  <p>نام تجارتی: Cipro</p>
+  <p class="price">قیمت: 200 افغانی / بسته</p>
+  <label>تعداد:</label>
+  <input type="number" id="qty2" value="1" min="1">
+  <a class="btn" href="#" onclick="
+    var qty=document.getElementById('qty2').value;
+    window.open('https://wa.me/93779369926?text=سلام%20🌿%0Aمن%20میخواهم%20'+qty+'%20بسته%20سیپروفلوکساسین%20سفارش%20بدهم%20برای%20داروخانه%20یا%20مرکز%20خودم');
+  ">سفارش در واتساپ</a>
 </div>
 
+<!-- محصول ۳ -->
 <div class="product">
-  <img src="LINK_PARACETAMOL">
+  <img src="https://via.placeholder.com/300x160.png?text=پاراستامول">
   <h3>پاراستامول</h3>
-  <p>محصول کیمیاوی – صرفاً جهت معلومات</p>
-  <a class="btn" href="https://wa.me/93779369926?text=سلام%20من%20در%20مورد%20پاراستامول%20استعلام%20دارم">
-    استعلام در واتساپ
-  </a>
+  <p>نام تجارتی: Paracet</p>
+  <p class="price">قیمت: 300 افغانی / بسته</p>
+  <label>تعداد:</label>
+  <input type="number" id="qty3" value="1" min="1">
+  <a class="btn" href="#" onclick="
+    var qty=document.getElementById('qty3').value;
+    window.open('https://wa.me/93779369926?text=سلام%20🌿%0Aمن%20میخواهم%20'+qty+'%20بسته%20پاراستامول%20سفارش%20بدهم%20برای%20داروخانه%20یا%20مرکز%20خودم');
+  ">سفارش در واتساپ</a>
 </div>
 
+<!-- محصول ۴ -->
 <div class="product">
-  <img src="LINK_SALINE">
+  <img src="https://via.placeholder.com/300x160.png?text=نرمال%20سالین">
   <h3>نرمال سالین</h3>
-  <p>محصول کیمیاوی – صرفاً جهت معلومات</p>
-  <a class="btn" href="https://wa.me/93779369926?text=سلام%20من%20در%20مورد%20نرمال%20سالین%20استعلام%20دارم">
-    استعلام در واتساپ
-  </a>
+  <p>نام تجارتی: Normal Saline</p>
+  <p class="price">قیمت: 150 افغانی / بسته</p>
+  <label>تعداد:</label>
+  <input type="number" id="qty4" value="1" min="1">
+  <a class="btn" href="#" onclick="
+    var qty=document.getElementById('qty4').value;
+    window.open('https://wa.me/93779369926?text=سلام%20🌿%0Aمن%20میخواهم%20'+qty+'%20بسته%20نرمال%20سالین%20سفارش%20بدهم%20برای%20داروخانه%20یا%20مرکز%20خودم');
+  ">سفارش در واتساپ</a>
 </div>
+
+</div>
+</body>
+</html>
