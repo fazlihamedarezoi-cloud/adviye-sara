@@ -22,11 +22,5 @@
     "chemical": "Sodium Chloride",
     "price": 30,
     "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/saline.jpg"
-  },
-  {
-    "name": "Ibuprofen 200mg",
-    "chemical": "Ibuprofen",
-    "price": 80,
-    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/ibuprofen.jpg"
   }
 ]
