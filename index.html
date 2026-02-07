@@ -7,7 +7,7 @@
 
 <style>
 body{font-family:sans-serif;background:#f4f6f8;margin:0;padding:10px}
-h1{text-align:center;margin-bottom:15px}
+h1{text-align:center;margin-bottom:10px}
 input{width:100%;padding:10px;margin-bottom:10px;border-radius:6px;border:1px solid #ccc}
 .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:15px}
 .card{background:#fff;border-radius:10px;padding:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);text-align:center;display:flex;flex-direction:column;align-items:center}
@@ -17,7 +17,9 @@ input{width:100%;padding:10px;margin-bottom:10px;border-radius:6px;border:1px so
 .price{color:#0a7d3b;font-weight:bold;margin:5px 0}
 .qty{width:60px;padding:6px;margin:5px auto;text-align:center;display:block}
 .total{font-size:13px;margin:5px 0}
-button{width:100%;padding:8px;background:#25d366;color:#fff;border:none;border-radius:6px;font-size:14px;cursor:pointer}
+button{width:100%;padding:8px;background:#25d366;color:#fff;border:none;border-radius:6px;font-size:14px;cursor:pointer;margin-top:5px}
+.warning{color:#c00;font-size:13px;text-align:center;margin-bottom:10px}
+.orderAll{background:#128C7E;margin-top:15px}
 </style>
 </head>
 
@@ -29,12 +31,15 @@ button{width:100%;padding:8px;background:#25d366;color:#fff;border:none;border-r
 <input id="search" placeholder="جستجوی دارو">
 
 <div class="products" id="products"></div>
+<div class="warning" id="warn"></div>
+<button class="orderAll" onclick="orderAll()">سفارش همه محصولات در واتساپ</button>
 
 <script>
 const whatsappNumber="93779369926";
-const MIN_TOTAL=3000; // حداقل مبلغ سفارش
+const MIN_TOTAL=3000;
 
 let allProducts=[];
+let productElems=[];
 
 fetch("products.json")
 .then(r=>r.json())
@@ -46,20 +51,20 @@ fetch("products.json")
 function render(list){
   const box=document.getElementById("products");
   box.innerHTML="";
+  productElems=[];
   list.forEach(p=>{
-    box.innerHTML+=`
-    <div class="card">
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
       <img src="${p.image}">
       <div class="name">${p.name}</div>
       <div class="chemical">${p.chemical}</div>
       <div class="price">${p.price} افغانی</div>
-
       <input class="qty" type="number" value="1" onchange="updateTotal(this,${p.price})">
-
       <div class="total">جمع: ${p.price} افغانی</div>
-
-      <button onclick="order('${p.name}',${p.price},this)">سفارش در واتساپ</button>
-    </div>`;
+    `;
+    box.appendChild(card);
+    productElems.push({elem:card, price:p.price, name:p.name});
   });
 }
 
@@ -70,28 +75,34 @@ function updateTotal(input,price){
   input.nextElementSibling.innerText="جمع: "+(q*price)+" افغانی";
 }
 
-function order(name,price,btn){
+function orderAll(){
   const store=document.getElementById("store").value.trim();
-  if(!store){
-    alert("لطفاً نام داروخانه را وارد کنید");
-    return;
-  }
+  if(!store){alert("لطفاً نام داروخانه را وارد کنید"); return;}
 
-  const qty=parseInt(btn.parentElement.querySelector(".qty").value);
-  const total=qty*price;
+  let totalAll=0;
+  let textLines=[];
+  productElems.forEach(p=>{
+    const qty=parseInt(p.elem.querySelector(".qty").value);
+    if(qty>0){
+      const total=qty*p.price;
+      totalAll+=total;
+      textLines.push(`${p.name} - تعداد: ${qty} - جمع: ${total} افغانی`);
+    }
+  });
 
-  if(total<MIN_TOTAL){
+  if(totalAll<MIN_TOTAL){
     alert("حداقل مبلغ سفارش "+MIN_TOTAL+" افغانی است");
     return;
   }
 
-  const text=`سفارش عمده دارو
+  const text=`انتخاب ما، انتخاب کیفیت، اطمینان و رضایت مشتریان است.
+
+سفارش عمده دارو
 داروخانه: ${store}
 
-نام محصول: ${name}
-تعداد: ${qty}
-قیمت واحد: ${price}
-جمع کل: ${total} افغانی`;
+`+textLines.join("\n")+`
+
+جمع کل: ${totalAll} افغانی`;
 
   window.open("https://wa.me/"+whatsappNumber+"?text="+encodeURIComponent(text),"_blank");
 }
