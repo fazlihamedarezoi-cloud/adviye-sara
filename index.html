@@ -2,127 +2,144 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
+<title>سفارش عمده دارو</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>فروشگاه آنلاین ادویه‌سرا</title>
 
 <style>
-body{
-  margin:0;
-  font-family: Arial;
-  background:#f2f2f2;
-}
-header{
-  background:#2e7d32;
-  color:white;
-  padding:20px;
-  text-align:center;
-  font-size:24px;
-  font-weight:bold;
+body{font-family:sans-serif;background:#f4f6f8;margin:0;padding:10px}
+h1{text-align:center}
+.search,input.store{
+  width:100%;padding:10px;margin-bottom:10px;
+  border-radius:6px;border:1px solid #ccc
 }
 .products{
-  display:flex;
-  flex-wrap:wrap;
-  gap:15px;
-  justify-content:center;
-  padding:15px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:15px
 }
-.product{
-  background:white;
-  width:220px;
-  border-radius:10px;
-  box-shadow:0 4px 8px rgba(0,0,0,0.15);
-  padding:10px;
-  text-align:center;
+.card{
+  background:#fff;border-radius:10px;padding:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+  text-align:center
 }
-.product img{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-  border-radius:8px;
-}
-.product h3{
-  margin:8px 0 4px;
-  font-size:17px;
-}
-.product p{
-  margin:3px 0;
-  font-size:14px;
-}
-.product input{
-  width:60px;
-  padding:5px;
-  margin-top:5px;
-}
+.card img{width:100%;height:140px;object-fit:contain}
+.name{font-weight:bold}
+.chemical{font-size:12px;color:#555}
+.price{color:#0a7d3b;font-weight:bold}
+.qty{width:60px;padding:5px;text-align:center}
+.total{font-size:13px;margin:5px 0}
 button{
-  display:block;
-  margin:20px auto;
-  padding:12px 25px;
-  background:#25D366;
-  color:white;
-  border:none;
-  border-radius:8px;
-  font-size:18px;
+  width:100%;padding:8px;background:#25d366;color:#fff;
+  border:none;border-radius:6px;cursor:pointer
+}
+.warning{
+  color:#c00;font-size:13px;text-align:center;margin-bottom:10px
 }
 </style>
 </head>
 
 <body>
 
-<header>فروشگاه آنلاین ادویه‌سرا</header>
+<h1>سفارش عمده دارو</h1>
+
+<input class="store" id="store" placeholder="نام داروخانه / مشتری">
+<input class="search" id="search" placeholder="جستجوی دارو...">
+
+<div class="warning" id="warn"></div>
 
 <div class="products" id="products"></div>
 
-<button onclick="sendOrder()">ارسال سفارش در واتساپ</button>
-
 <script>
-const whatsappNumber = "93779369926";
-let products = [];
+const whatsappNumber="93779369926";
+const MIN_TOTAL=1000;
+
+// ⭐ لیست مشتریان ثابت
+const vipCustomers=[
+  "داروخانه احمدی",
+  "داروخانه شفاخانه",
+  "داروخانه صحت"
+];
+
+let allProducts=[];
 
 fetch("products.json")
-.then(res => res.json())
-.then(data => {
-  products = data;
-  showProducts();
+.then(r=>r.json())
+.then(d=>{
+  allProducts=d;
+  showProducts(d);
 });
 
-function showProducts(){
-  const box = document.getElementById("products");
-  box.innerHTML = "";
-  products.forEach((p,i)=>{
-    box.innerHTML += `
-      <div class="product">
-        <img src="${p.image}">
-        <h3>${p.name}</h3>
-        <p>نام کیمیاوی: ${p.chemical}</p>
-        <p>قیمت: ${p.price} افغانی</p>
-        <input type="number" id="q${i}" min="0" value="0">
-      </div>
-    `;
+function showProducts(list){
+  const box=document.getElementById("products");
+  box.innerHTML="";
+  list.forEach(p=>{
+    box.innerHTML+=`
+    <div class="card">
+      <img src="${p.image}">
+      <div class="name">${p.name}</div>
+      <div class="chemical">${p.chemical}</div>
+      <div class="price">${p.price} افغانی</div>
+
+      <input type="number" class="qty" min="5" value="5"
+        oninput="updateTotal(this,${p.price})">
+
+      <div class="total">جمع: ${p.price*5} افغانی</div>
+
+      <button onclick="order('${p.name}',this,${p.price})">
+        سفارش در واتساپ
+      </button>
+    </div>`;
   });
 }
 
-function sendOrder(){
-  let text = "سلام، سفارش من:\n";
-  let ok = false;
+function updateTotal(input,price){
+  if(input.value<5) input.value=5;
+  input.nextElementSibling.innerText=
+    "جمع: "+(input.value*price)+" افغانی";
+}
 
-  products.forEach((p,i)=>{
-    let q = document.getElementById("q"+i).value;
-    if(q > 0){
-      text += q + " عدد " + p.name + "\n";
-      ok = true;
-    }
-  });
-
-  if(!ok){
-    alert("هیچ محصولی انتخاب نشده");
+function order(name,btn,price){
+  const store=document.getElementById("store").value.trim();
+  if(!store){
+    alert("نام داروخانه را وارد کنید");
     return;
   }
 
+  const qty=btn.parentElement.querySelector(".qty").value;
+  const total=qty*price;
+
+  if(total<MIN_TOTAL){
+    document.getElementById("warn").innerText=
+      "حداقل مبلغ سفارش "+MIN_TOTAL+" افغانی است";
+    return;
+  }
+
+  const isVIP=vipCustomers.includes(store);
+  const tag=isVIP?"⭐ مشتری ثابت":"مشتری عادی";
+
+  const text=
+`سفارش عمده دارو
+${tag}
+داروخانه: ${store}
+
+نام: ${name}
+تعداد: ${qty}
+قیمت واحد: ${price}
+جمع کل: ${total} افغانی`;
+
   window.open(
-    "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(text),
+    "https://wa.me/"+whatsappNumber+
+    "?text="+encodeURIComponent(text),
     "_blank"
   );
 }
+
+document.getElementById("search").oninput=function(){
+  const v=this.value.toLowerCase();
+  showProducts(
+    allProducts.filter(p=>p.name.toLowerCase().includes(v))
+  );
+};
 </script>
 
 </body>
