@@ -3,24 +3,24 @@
     "name": "Amoxicillin 500mg",
     "chemical": "Amoxicillin Trihydrate",
     "price": 100,
-    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/amoxicillin.jpg"
+    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/amoxicillin%20(1).jpeg"
   },
   {
     "name": "Ciprofloxacin 500mg",
     "chemical": "Ciprofloxacin Hydrochloride",
     "price": 120,
-    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/cipro.jpg"
+    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Cipro%20(7)%20(1).jpeg"
   },
   {
     "name": "Paracetamol 500mg",
     "chemical": "Acetaminophen",
     "price": 50,
-    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/paracetamol.jpg"
+    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Paracetamo%20(1).jpeg"
   },
   {
     "name": "Normal Saline 0.9%",
     "chemical": "Sodium Chloride",
     "price": 30,
-    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/saline.jpg"
+    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/saline%20(4).jpeg"
   }
 ]
