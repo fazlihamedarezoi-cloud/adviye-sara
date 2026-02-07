@@ -7,17 +7,17 @@
 
 <style>
 body{font-family:sans-serif;background:#f4f6f8;margin:0;padding:10px}
-h1{text-align:center}
+h1{text-align:center;margin-bottom:15px}
 input{width:100%;padding:10px;margin-bottom:10px;border-radius:6px;border:1px solid #ccc}
 .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:15px}
-.card{background:#fff;border-radius:10px;padding:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);text-align:center}
+.card{background:#fff;border-radius:10px;padding:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);text-align:center;display:flex;flex-direction:column;align-items:center}
 .card img{width:100%;height:140px;object-fit:contain}
-.name{font-weight:bold}
-.chemical{font-size:12px;color:#555}
-.price{color:#0a7d3b;font-weight:bold}
-.qty{width:80px;padding:6px;margin-top:5px}
+.name{font-weight:bold;margin-top:5px}
+.chemical{font-size:12px;color:#555;margin:3px 0}
+.price{color:#0a7d3b;font-weight:bold;margin:5px 0}
+.qty{width:60px;padding:6px;margin:5px auto;text-align:center;display:block}
 .total{font-size:13px;margin:5px 0}
-button{width:100%;padding:8px;background:#25d366;color:#fff;border:none;border-radius:6px;font-size:14px}
+button{width:100%;padding:8px;background:#25d366;color:#fff;border:none;border-radius:6px;font-size:14px;cursor:pointer}
 </style>
 </head>
 
@@ -32,8 +32,7 @@ button{width:100%;padding:8px;background:#25d366;color:#fff;border:none;border-r
 
 <script>
 const whatsappNumber="93779369926";
-const MIN_QTY=5;
-const MIN_TOTAL=1000;
+const MIN_TOTAL=3000; // حداقل مبلغ سفارش
 
 let allProducts=[];
 
@@ -55,36 +54,30 @@ function render(list){
       <div class="chemical">${p.chemical}</div>
       <div class="price">${p.price} افغانی</div>
 
-      <input class="qty" type="number" min="5" value="5"
-        onchange="updateTotal(this,${p.price})">
+      <input class="qty" type="number" value="1" onchange="updateTotal(this,${p.price})">
 
-      <div class="total">جمع: ${p.price*5} افغانی</div>
+      <div class="total">جمع: ${p.price} افغانی</div>
 
-      <button onclick="order('${p.name}',${p.price},this)">
-        سفارش در واتساپ
-      </button>
+      <button onclick="order('${p.name}',${p.price},this)">سفارش در واتساپ</button>
     </div>`;
   });
 }
 
 function updateTotal(input,price){
   let q=parseInt(input.value);
-  if(isNaN(q)||q<MIN_QTY) q=MIN_QTY;
+  if(isNaN(q)||q<1) q=1;
   input.value=q;
-  input.nextElementSibling.innerText=
-    "جمع: "+(q*price)+" افغانی";
+  input.nextElementSibling.innerText="جمع: "+(q*price)+" افغانی";
 }
 
 function order(name,price,btn){
   const store=document.getElementById("store").value.trim();
   if(!store){
-    alert("نام داروخانه را وارد کنید");
+    alert("لطفاً نام داروخانه را وارد کنید");
     return;
   }
 
-  const qty=parseInt(
-    btn.parentElement.querySelector(".qty").value
-  );
+  const qty=parseInt(btn.parentElement.querySelector(".qty").value);
   const total=qty*price;
 
   if(total<MIN_TOTAL){
@@ -92,8 +85,7 @@ function order(name,price,btn){
     return;
   }
 
-  const text=
-`سفارش عمده دارو
+  const text=`سفارش عمده دارو
 داروخانه: ${store}
 
 نام محصول: ${name}
@@ -101,128 +93,7 @@ function order(name,price,btn){
 قیمت واحد: ${price}
 جمع کل: ${total} افغانی`;
 
-  window.open(
-    "https://wa.me/"+whatsappNumber+
-    "?text="+encodeURIComponent(text),
-    "_blank"
-  );
-}
-
-document.getElementById("search").oninput=function(){
-  const v=this.value.toLowerCase();
-  render(allProducts.filter(p=>p.name.toLowerCase().includes(v)));
-};
-</script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="fa">
-<head>
-<meta charset="UTF-8">
-<title>سفارش عمده دارو</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body{font-family:sans-serif;background:#f4f6f8;margin:0;padding:10px}
-h1{text-align:center}
-input{width:100%;padding:10px;margin-bottom:10px;border-radius:6px;border:1px solid #ccc}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:15px}
-.card{background:#fff;border-radius:10px;padding:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);text-align:center}
-.card img{width:100%;height:140px;object-fit:contain}
-.name{font-weight:bold}
-.chemical{font-size:12px;color:#555}
-.price{color:#0a7d3b;font-weight:bold}
-.qty{width:80px;padding:6px;margin-top:5px}
-.total{font-size:13px;margin:5px 0}
-button{width:100%;padding:8px;background:#25d366;color:#fff;border:none;border-radius:6px;font-size:14px}
-</style>
-</head>
-
-<body>
-
-<h1>سفارش عمده دارو</h1>
-
-<input id="store" placeholder="نام داروخانه">
-<input id="search" placeholder="جستجوی دارو">
-
-<div class="products" id="products"></div>
-
-<script>
-const whatsappNumber="93779369926";
-const MIN_QTY=5;
-const MIN_TOTAL=1000;
-
-let allProducts=[];
-
-fetch("products.json")
-.then(r=>r.json())
-.then(d=>{
-  allProducts=d;
-  render(d);
-});
-
-function render(list){
-  const box=document.getElementById("products");
-  box.innerHTML="";
-  list.forEach(p=>{
-    box.innerHTML+=`
-    <div class="card">
-      <img src="${p.image}">
-      <div class="name">${p.name}</div>
-      <div class="chemical">${p.chemical}</div>
-      <div class="price">${p.price} افغانی</div>
-
-      <input class="qty" type="number" min="5" value="5"
-        onchange="updateTotal(this,${p.price})">
-
-      <div class="total">جمع: ${p.price*5} افغانی</div>
-
-      <button onclick="order('${p.name}',${p.price},this)">
-        سفارش در واتساپ
-      </button>
-    </div>`;
-  });
-}
-
-function updateTotal(input,price){
-  let q=parseInt(input.value);
-  if(isNaN(q)||q<MIN_QTY) q=MIN_QTY;
-  input.value=q;
-  input.nextElementSibling.innerText=
-    "جمع: "+(q*price)+" افغانی";
-}
-
-function order(name,price,btn){
-  const store=document.getElementById("store").value.trim();
-  if(!store){
-    alert("نام داروخانه را وارد کنید");
-    return;
-  }
-
-  const qty=parseInt(
-    btn.parentElement.querySelector(".qty").value
-  );
-  const total=qty*price;
-
-  if(total<MIN_TOTAL){
-    alert("حداقل مبلغ سفارش "+MIN_TOTAL+" افغانی است");
-    return;
-  }
-
-  const text=
-`سفارش عمده دارو
-داروخانه: ${store}
-
-نام محصول: ${name}
-تعداد: ${qty}
-قیمت واحد: ${price}
-جمع کل: ${total} افغانی`;
-
-  window.open(
-    "https://wa.me/"+whatsappNumber+
-    "?text="+encodeURIComponent(text),
-    "_blank"
-  );
+  window.open("https://wa.me/"+whatsappNumber+"?text="+encodeURIComponent(text),"_blank");
 }
 
 document.getElementById("search").oninput=function(){
