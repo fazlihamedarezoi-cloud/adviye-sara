@@ -1,25 +1,32 @@
-# ساخت یک نسخه اصلاح شده که مطمئناً در مرورگر اجرا شود و فایل‌ها مستقیم باز شوند
-
-import shutil
-
-# مسیر فایل جدید برای نسخه اصلاح شده
-final_zip_browser_path = "/mnt/data/adviye_sara_browser_ready.zip"
-
-# پاک کردن پوشه موقت قبلی در صورت وجود
-shutil.rmtree(temp_folder_final, ignore_errors=True)
-os.makedirs(temp_folder_final, exist_ok=True)
-
-# کپی کردن همان محتوا
-with open(os.path.join(temp_folder_final, "index.html"), "w", encoding="utf-8") as f:
-    f.write(index_html_final)
-
-with open(os.path.join(temp_folder_final, "products.json"), "w", encoding="utf-8") as f:
-    f.write(products_json_final)
-
-# ساخت ZIP نهایی مخصوص باز شدن در مرورگر
-with zipfile.ZipFile(final_zip_browser_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-    for root, dirs, files in os.walk(temp_folder_final):
-        for file in files:
-            zipf.write(os.path.join(root, file), arcname=file)
-
-final_zip_browser_path
+[
+  {
+    "name": "Amoxicillin 500mg",
+    "chemical": "Amoxicillin Trihydrate",
+    "price": 100,
+    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/amoxicillin.jpg"
+  },
+  {
+    "name": "Ciprofloxacin 500mg",
+    "chemical": "Ciprofloxacin Hydrochloride",
+    "price": 120,
+    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/cipro.jpg"
+  },
+  {
+    "name": "Paracetamol 500mg",
+    "chemical": "Acetaminophen",
+    "price": 50,
+    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/paracetamol.jpg"
+  },
+  {
+    "name": "Normal Saline 0.9%",
+    "chemical": "Sodium Chloride",
+    "price": 30,
+    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/saline.jpg"
+  },
+  {
+    "name": "Ibuprofen 200mg",
+    "chemical": "Ibuprofen",
+    "price": 80,
+    "image": "https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/ibuprofen.jpg"
+  }
+]
