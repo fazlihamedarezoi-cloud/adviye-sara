@@ -16,28 +16,31 @@ h2 {
     margin-top: 20px;
     color: #333;
 }
-.product, .customer-form, .suggestion {
+.container {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 10px;
+}
+.card, .customer-form, .suggestion {
     background: white;
-    margin: 20px auto;
+    margin: 15px auto;
     padding: 15px;
-    width: 92%;
-    max-width: 420px;
     border-radius: 14px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
-.product img {
+.card img {
     width: 100%;
-    height: 300px;
+    height: 280px;
     object-fit: contain;
-    margin-bottom: 12px;
     border-radius: 12px;
 }
-.qty {
+label {
+    display: block;
     margin-top: 10px;
-    font-size: 16px;
+    font-weight: bold;
     color: #555;
 }
-input[type="number"], input[type="text"], textarea {
+input[type="text"], input[type="number"], textarea {
     width: 90%;
     padding: 8px;
     margin-top: 6px;
@@ -62,63 +65,77 @@ button {
 button:hover {
     background: #006fe0;
 }
+.qty {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #555;
+}
 </style>
 </head>
 <body>
+<div class="container">
 
-<h2>سفارش دارو</h2>
+<h2>مشخصات مشتری</h2>
+<div class="customer-form">
+  <label>نام مشتری:</label>
+  <input type="text" id="customerName" placeholder="نام خود را وارد کنید">
+  <label>آدرس:</label>
+  <input type="text" id="customerAddress" placeholder="آدرس خود را وارد کنید">
+  <label>شماره تماس:</label>
+  <input type="text" id="customerPhone" placeholder="شماره تماس خود را وارد کنید">
+</div>
 
-<!-- کارت محصولات -->
-<div class="product">
+<h2>پیشنهادات شما</h2>
+<div class="suggestion">
+  <textarea id="customerSuggestion" placeholder="پیشنهادات یا نظرات خود را وارد کنید"></textarea>
+</div>
+
+<h2>سفارش محصولات</h2>
+
+<div class="card">
   <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Cipro%20%287%29%20%281%29.jpeg" alt="Cipro 500mg">
   <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="1" value="1">
-  <br>
-  <button>افزودن به سفارش</button>
+  <input type="number" min="0" value="0" id="ciproQty">
 </div>
 
-<div class="product">
+<div class="card">
   <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/saline%20%284%29.jpeg" alt="Normal Saline">
   <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="1" value="1">
-  <br>
-  <button>افزودن به سفارش</button>
+  <input type="number" min="0" value="0" id="salineQty">
 </div>
 
-<div class="product">
+<div class="card">
   <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Paracetamo%20%281%29.jpeg" alt="Paracetamol 500mg">
   <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="1" value="1">
-  <br>
-  <button>افزودن به سفارش</button>
+  <input type="number" min="0" value="0" id="paracetamolQty">
 </div>
 
-<div class="product">
+<div class="card">
   <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/amoxicillin%20%281%29.jpeg" alt="Amoxicillin 500mg">
   <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="1" value="1">
-  <br>
-  <button>افزودن به سفارش</button>
+  <input type="number" min="0" value="0" id="amoxicillinQty">
 </div>
 
-<!-- فرم مشتری -->
-<div class="customer-form">
-  <h2>مشخصات مشتری</h2>
-  <label>نام مشتری:</label><br>
-  <input type="text" placeholder="نام خود را وارد کنید"><br>
-  <label>آدرس:</label><br>
-  <input type="text" placeholder="آدرس خود را وارد کنید"><br>
-  <label>شماره تماس:</label><br>
-  <input type="text" placeholder="شماره تماس خود را وارد کنید"><br>
-  <button>ثبت مشخصات مشتری</button>
-</div>
+<button onclick="submitOrder()">ارسال سفارش</button>
 
-<!-- بخش پیشنهادات -->
-<div class="suggestion">
-  <h2>پیشنهادات شما</h2>
-  <textarea placeholder="پیشنهادات یا نظرات خود را وارد کنید"></textarea><br>
-  <button>ارسال پیشنهاد</button>
-</div>
+<script>
+function submitOrder() {
+    const name = document.getElementById('customerName').value;
+    const address = document.getElementById('customerAddress').value;
+    const phone = document.getElementById('customerPhone').value;
+    const suggestion = document.getElementById('customerSuggestion').value;
 
+    const cipro = document.getElementById('ciproQty').value;
+    const saline = document.getElementById('salineQty').value;
+    const paracetamol = document.getElementById('paracetamolQty').value;
+    const amoxicillin = document.getElementById('amoxicillinQty').value;
+
+    let orderSummary = `نام: ${name}\nآدرس: ${address}\nشماره تماس: ${phone}\n\nپیشنهادات: ${suggestion}\n\nسفارش‌ها:\nCipro: ${cipro}\nSaline: ${saline}\nParacetamol: ${paracetamol}\nAmoxicillin: ${amoxicillin}`;
+
+    alert("سفارش شما ثبت شد:\n\n" + orderSummary);
+}
+</script>
+
+</div>
 </body>
 </html>
