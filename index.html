@@ -8,149 +8,244 @@
 <style>
 body{
   margin:0;
-  font-family: Tahoma, sans-serif;
-  direction: rtl;
-  background:#f2f4f7;
+  font-family:tahoma;
+  background:#f4f6f8;
+  direction:rtl;
 }
 
-/* هدر */
-.header{
-  background:#0a7cff;
+header{
+  background:#0d6efd;
   color:white;
-  padding:20px 15px;
+  padding:20px;
   text-align:center;
 }
-.header h1{
-  margin:0;
-  font-size:22px;
-}
-.header p{
-  margin-top:8px;
-  font-size:15px;
-  opacity:0.95;
-}
 
-/* کانتینر تمام‌عرض */
+header h1{margin:0}
+header p{margin:8px 0 0;font-size:14px}
+
 .container{
-  width:100%;
-  padding:10px;
-  box-sizing:border-box;
+  max-width:1200px;
+  margin:auto;
+  padding:15px;
 }
 
-/* کارت‌ها */
 .card{
   background:white;
-  margin:15px 0;
-  padding:15px;
   border-radius:16px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.12);
+  box-shadow:0 6px 18px rgba(0,0,0,.1);
+  margin-bottom:20px;
+  padding:15px;
+  text-align:center;
 }
 
 .card img{
   width:100%;
-  height:300px;
+  max-height:200px;
   object-fit:contain;
-  border-radius:12px;
 }
 
-label{
-  display:block;
+.qty-box{
+  display:flex;
+  justify-content:center;
+  align-items:center;
   margin-top:10px;
+}
+
+.qty-box button{
+  width:40px;
+  height:40px;
+  font-size:22px;
+  border:none;
+  background:#0d6efd;
+  color:white;
+  border-radius:10px;
+}
+
+.qty-box input{
+  width:60px;
+  text-align:center;
+  font-size:18px;
+  margin:0 8px;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+.price{
   font-weight:bold;
-  color:#444;
+  margin-top:10px;
+}
+
+.section{
+  background:white;
+  padding:15px;
+  border-radius:16px;
+  margin-top:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,.1);
 }
 
 input, textarea{
   width:100%;
-  padding:10px;
-  margin-top:6px;
+  padding:12px;
+  margin-top:8px;
   font-size:16px;
   border-radius:10px;
   border:1px solid #ccc;
-  box-sizing:border-box;
+  text-align:center;
 }
 
-textarea{ height:80px; resize:none; }
-
-.qty{
+.total{
+  font-size:18px;
   margin-top:10px;
-  font-size:16px;
+  font-weight:bold;
+  color:#198754;
 }
 
-button{
+.order-btn{
   width:100%;
-  margin-top:15px;
-  padding:14px;
-  font-size:17px;
-  background:#0a7cff;
-  color:white;
+  padding:15px;
+  font-size:18px;
   border:none;
   border-radius:14px;
+  margin-top:15px;
+  background:#25D366;
+  color:white;
 }
-button:active{ opacity:0.8; }
+
+.sms-btn{
+  background:#0d6efd;
+  margin-top:10px;
+}
+
+footer{
+  text-align:center;
+  font-size:14px;
+  padding:20px;
+  color:#555;
+}
 </style>
 </head>
 
 <body>
 
-<!-- هدر + شعار -->
-<div class="header">
-  <h1>Adviye Sara</h1>
+<header>
+  <h1>ادویه‌سرا</h1>
   <p>انتخاب ما، انتخاب کیفیت، اطمینان و رضایت مشتریان است</p>
-</div>
+</header>
 
 <div class="container">
 
-<!-- مشخصات مشتری -->
+<!-- محصولات -->
 <div class="card">
-  <h3>🧾 مشخصات مشتری</h3>
-  <label>نام مشتری</label>
-  <input id="name">
-  <label>شماره تماس</label>
-  <input id="phone">
-  <label>آدرس</label>
-  <textarea id="address"></textarea>
+  <h3>Amoxicillin 500mg</h3>
+  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/amoxicillin%20%281%29.jpeg">
+  <div class="qty-box">
+    <button onclick="changeQty(0,-1)">−</button>
+    <input id="q0" value="0">
+    <button onclick="changeQty(0,1)">+</button>
+  </div>
+  <div class="price">قیمت: 100 افغانی</div>
+</div>
+
+<div class="card">
+  <h3>Ciprofloxacin 500mg</h3>
+  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Cipro%20%287%29%20%281%29.jpeg">
+  <div class="qty-box">
+    <button onclick="changeQty(1,-1)">−</button>
+    <input id="q1" value="0">
+    <button onclick="changeQty(1,1)">+</button>
+  </div>
+  <div class="price">قیمت: 120 افغانی</div>
+</div>
+
+<div class="card">
+  <h3>Paracetamol 500mg</h3>
+  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Paracetamo%20%281%29.jpeg">
+  <div class="qty-box">
+    <button onclick="changeQty(2,-1)">−</button>
+    <input id="q2" value="0">
+    <button onclick="changeQty(2,1)">+</button>
+  </div>
+  <div class="price">قیمت: 50 افغانی</div>
+</div>
+
+<div class="card">
+  <h3>Normal Saline</h3>
+  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/saline%20%284%29.jpeg">
+  <div class="qty-box">
+    <button onclick="changeQty(3,-1)">−</button>
+    <input id="q3" value="0">
+    <button onclick="changeQty(3,1)">+</button>
+  </div>
+  <div class="price">قیمت: 30 افغانی</div>
+</div>
+
+<!-- مشخصات مشتری -->
+<div class="section">
+  <h3>مشخصات مشتری</h3>
+  <input id="name" placeholder="نام مشتری">
+  <input id="phone" placeholder="شماره تماس">
+  <textarea id="address" placeholder="آدرس مشتری"></textarea>
 </div>
 
 <!-- پیشنهادات -->
-<div class="card">
-  <h3>⭐ پیشنهادات</h3>
-  <textarea id="suggest" placeholder="پیشنهاد یا نظر خود را بنویسید"></textarea>
+<div class="section">
+  <h3>پیشنهادات شما</h3>
+  <textarea id="suggest" placeholder="نظر یا پیشنهاد شما"></textarea>
 </div>
 
-<!-- محصولات -->
-<div class="card">
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Cipro%20%287%29%20%281%29.jpeg">
-  <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="0" value="0" id="cipro">
-</div>
+<div class="total" id="total">مبلغ کل: 0 افغانی</div>
 
-<div class="card">
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/saline%20%284%29.jpeg">
-  <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="0" value="0" id="saline">
-</div>
-
-<div class="card">
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Paracetamo%20%281%29.jpeg">
-  <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="0" value="0" id="para">
-</div>
-
-<div class="card">
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/amoxicillin%20%281%29.jpeg">
-  <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="0" value="0" id="amox">
-</div>
-
-<!-- دکمه سفارش کلی -->
-<button onclick="sendOrder()">📦 ثبت سفارش</button>
+<button class="order-btn" onclick="sendOrder()">ارسال سفارش با واتساپ</button>
+<button class="order-btn sms-btn" onclick="sendSMS()">ارسال سفارش با پیامک</button>
 
 </div>
+
+<footer>
+© Adviye Sara
+</footer>
 
 <script>
+const prices=[100,120,50,30];
+
+function changeQty(i,val){
+  let q=document.getElementById("q"+i);
+  let n=parseInt(q.value)+val;
+  if(n<0)n=0;
+  q.value=n;
+  calc();
+}
+
+function calc(){
+  let sum=0;
+  for(let i=0;i<4;i++){
+    sum+=parseInt(document.getElementById("q"+i).value)*prices[i];
+  }
+  document.getElementById("total").innerText="مبلغ کل: "+sum+" افغانی";
+  return sum;
+}
+
 function sendOrder(){
-  alert("سفارش شما ثبت شد ✔️\nبه‌زودی با شما تماس می‌گیریم");
+  let sum=calc();
+  if(sum<3000){
+    alert("حداقل خرید ۳۰۰۰ افغانی است");
+    return;
+  }
+  let msg="سفارش جدید:\n";
+  msg+="نام: "+name.value+"\n";
+  msg+="شماره: "+phone.value+"\n";
+  msg+="آدرس: "+address.value+"\n";
+  msg+="مبلغ: "+sum+" افغانی";
+  window.open("https://wa.me/?text="+encodeURIComponent(msg));
+}
+
+function sendSMS(){
+  let sum=calc();
+  if(sum<3000){
+    alert("حداقل خرید ۳۰۰۰ افغانی است");
+    return;
+  }
+  let msg="سفارش جدید - مبلغ "+sum+" افغانی";
+  window.location.href="sms:?body="+encodeURIComponent(msg);
 }
 </script>
 
