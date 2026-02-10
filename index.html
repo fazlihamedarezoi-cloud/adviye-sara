@@ -2,140 +2,157 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>سفارش دارو</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adviye Sara</title>
+
 <style>
-body {
-    font-family: Tahoma, sans-serif;
-    direction: rtl;
-    background: #f5f5f5;
-    text-align: center;
-    margin: 0;
-    padding: 0;
+body{
+  margin:0;
+  font-family: Tahoma, sans-serif;
+  direction: rtl;
+  background:#f2f4f7;
 }
-h2 {
-    margin-top: 20px;
-    color: #333;
+
+/* هدر */
+.header{
+  background:#0a7cff;
+  color:white;
+  padding:20px 15px;
+  text-align:center;
 }
-.container {
-    max-width: 450px;
-    margin: 0 auto;
-    padding: 10px;
+.header h1{
+  margin:0;
+  font-size:22px;
 }
-.card, .customer-form, .suggestion {
-    background: white;
-    margin: 15px auto;
-    padding: 15px;
-    border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+.header p{
+  margin-top:8px;
+  font-size:15px;
+  opacity:0.95;
 }
-.card img {
-    width: 100%;
-    height: 280px;
-    object-fit: contain;
-    border-radius: 12px;
+
+/* کانتینر تمام‌عرض */
+.container{
+  width:100%;
+  padding:10px;
+  box-sizing:border-box;
 }
-label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-    color: #555;
+
+/* کارت‌ها */
+.card{
+  background:white;
+  margin:15px 0;
+  padding:15px;
+  border-radius:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.12);
 }
-input[type="text"], input[type="number"], textarea {
-    width: 90%;
-    padding: 8px;
-    margin-top: 6px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+
+.card img{
+  width:100%;
+  height:300px;
+  object-fit:contain;
+  border-radius:12px;
 }
-textarea {
-    height: 80px;
-    resize: none;
+
+label{
+  display:block;
+  margin-top:10px;
+  font-weight:bold;
+  color:#444;
 }
-button {
-    margin-top: 12px;
-    padding: 12px 25px;
-    font-size: 16px;
-    background: #0a7cff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
+
+input, textarea{
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  font-size:16px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  box-sizing:border-box;
 }
-button:hover {
-    background: #006fe0;
+
+textarea{ height:80px; resize:none; }
+
+.qty{
+  margin-top:10px;
+  font-size:16px;
 }
-.qty {
-    margin-top: 8px;
-    font-size: 16px;
-    color: #555;
+
+button{
+  width:100%;
+  margin-top:15px;
+  padding:14px;
+  font-size:17px;
+  background:#0a7cff;
+  color:white;
+  border:none;
+  border-radius:14px;
 }
+button:active{ opacity:0.8; }
 </style>
 </head>
+
 <body>
+
+<!-- هدر + شعار -->
+<div class="header">
+  <h1>Adviye Sara</h1>
+  <p>انتخاب ما، انتخاب کیفیت، اطمینان و رضایت مشتریان است</p>
+</div>
+
 <div class="container">
 
-<h2>مشخصات مشتری</h2>
-<div class="customer-form">
-  <label>نام مشتری:</label>
-  <input type="text" id="customerName" placeholder="نام خود را وارد کنید">
-  <label>آدرس:</label>
-  <input type="text" id="customerAddress" placeholder="آدرس خود را وارد کنید">
-  <label>شماره تماس:</label>
-  <input type="text" id="customerPhone" placeholder="شماره تماس خود را وارد کنید">
-</div>
-
-<h2>پیشنهادات شما</h2>
-<div class="suggestion">
-  <textarea id="customerSuggestion" placeholder="پیشنهادات یا نظرات خود را وارد کنید"></textarea>
-</div>
-
-<h2>سفارش محصولات</h2>
-
+<!-- مشخصات مشتری -->
 <div class="card">
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Cipro%20%287%29%20%281%29.jpeg" alt="Cipro 500mg">
-  <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="0" value="0" id="ciproQty">
+  <h3>🧾 مشخصات مشتری</h3>
+  <label>نام مشتری</label>
+  <input id="name">
+  <label>شماره تماس</label>
+  <input id="phone">
+  <label>آدرس</label>
+  <textarea id="address"></textarea>
 </div>
 
+<!-- پیشنهادات -->
 <div class="card">
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/saline%20%284%29.jpeg" alt="Normal Saline">
+  <h3>⭐ پیشنهادات</h3>
+  <textarea id="suggest" placeholder="پیشنهاد یا نظر خود را بنویسید"></textarea>
+</div>
+
+<!-- محصولات -->
+<div class="card">
+  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Cipro%20%287%29%20%281%29.jpeg">
   <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="0" value="0" id="salineQty">
+  <input type="number" min="0" value="0" id="cipro">
 </div>
 
 <div class="card">
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Paracetamo%20%281%29.jpeg" alt="Paracetamol 500mg">
+  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/saline%20%284%29.jpeg">
   <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="0" value="0" id="paracetamolQty">
+  <input type="number" min="0" value="0" id="saline">
 </div>
 
 <div class="card">
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/amoxicillin%20%281%29.jpeg" alt="Amoxicillin 500mg">
+  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Paracetamo%20%281%29.jpeg">
   <div class="qty">تعداد سفارش:</div>
-  <input type="number" min="0" value="0" id="amoxicillinQty">
+  <input type="number" min="0" value="0" id="para">
 </div>
 
-<button onclick="submitOrder()">ارسال سفارش</button>
+<div class="card">
+  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/amoxicillin%20%281%29.jpeg">
+  <div class="qty">تعداد سفارش:</div>
+  <input type="number" min="0" value="0" id="amox">
+</div>
+
+<!-- دکمه سفارش کلی -->
+<button onclick="sendOrder()">📦 ثبت سفارش</button>
+
+</div>
 
 <script>
-function submitOrder() {
-    const name = document.getElementById('customerName').value;
-    const address = document.getElementById('customerAddress').value;
-    const phone = document.getElementById('customerPhone').value;
-    const suggestion = document.getElementById('customerSuggestion').value;
-
-    const cipro = document.getElementById('ciproQty').value;
-    const saline = document.getElementById('salineQty').value;
-    const paracetamol = document.getElementById('paracetamolQty').value;
-    const amoxicillin = document.getElementById('amoxicillinQty').value;
-
-    let orderSummary = `نام: ${name}\nآدرس: ${address}\nشماره تماس: ${phone}\n\nپیشنهادات: ${suggestion}\n\nسفارش‌ها:\nCipro: ${cipro}\nSaline: ${saline}\nParacetamol: ${paracetamol}\nAmoxicillin: ${amoxicillin}`;
-
-    alert("سفارش شما ثبت شد:\n\n" + orderSummary);
+function sendOrder(){
+  alert("سفارش شما ثبت شد ✔️\nبه‌زودی با شما تماس می‌گیریم");
 }
 </script>
 
-</div>
 </body>
 </html>
