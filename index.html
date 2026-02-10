@@ -2,144 +2,91 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adviye Sara</title>
+<title>سفارش دارو</title>
 
 <style>
-body{
-  font-family:tahoma;
-  background:#f4f6f8;
-  margin:0;
-  padding:10px;
+body {
+    font-family: Tahoma, sans-serif;
+    direction: rtl;
+    background: #f5f5f5;
+    text-align: center;
 }
-h2{text-align:center;color:#0a7cff}
-.card{
-  background:#fff;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:15px;
-  box-shadow:0 2px 8px rgba(0,0,0,.1)
+
+.product {
+    background: white;
+    margin: 20px auto;
+    padding: 15px;
+    width: 92%;
+    max-width: 420px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
-.product{
-  display:flex;
-  align-items:center;
-  margin-bottom:10px
+
+.product img {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    margin-bottom: 12px;
 }
-.product img{
-  width:60px;
-  height:60px;
-  border-radius:8px;
-  margin-left:10px
+
+.qty {
+    margin-top: 10px;
 }
-.product input{
-  width:60px;
-  text-align:center
+
+input {
+    width: 90px;
+    padding: 6px;
+    font-size: 16px;
+    text-align: center;
 }
-button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:#0a7cff;
-  color:#fff;
-  font-size:16px;
-  margin-top:10px
-}
-button.secondary{background:#555}
-.total{font-size:18px;font-weight:bold;text-align:center}
-input,textarea{
-  width:100%;
-  padding:10px;
-  margin-top:8px;
-  border-radius:8px;
-  border:1px solid #ccc
+
+button {
+    margin-top: 12px;
+    padding: 12px 25px;
+    font-size: 16px;
+    background: #0a7cff;
+    color: white;
+    border: none;
+    border-radius: 10px;
 }
 </style>
 </head>
 
 <body>
 
-<h2>Adviye Sara</h2>
-<p style="text-align:center;color:#555">
-انتخاب ما، انتخاب کیفیت، اطمینان و رضایت مشتریان است
-</p>
-
-<div class="card">
-<h3>🧾 مشخصات مشتری</h3>
-<input id="name" placeholder="نام مشتری">
-<input id="phone" placeholder="شماره تماس">
-<textarea id="address" placeholder="آدرس کامل"></textarea>
-</div>
-
-<div class="card">
-<h3>💊 داروها</h3>
+<h2>سفارش دارو</h2>
 
 <div class="product">
-<img src="amoxicillin.jpg">
-<div>
-Amoxicillin 500mg<br>
-<input type="number" min="0" value="0" onchange="calc()">
-</div>
-<span data-price="100"></span>
+    <img src="https://raw.githubusercontent.com/USERNAME/REPO/main/Cipro%20(7)%20(1).jpeg">
+    <div class="qty">تعداد سفارش:</div>
+    <input type="number" min="1" value="1">
+    <br>
+    <button>افزودن به سفارش</button>
 </div>
 
 <div class="product">
-<img src="cipro.jpg">
-<div>
-Ciprofloxacin 500mg<br>
-<input type="number" min="0" value="0" onchange="calc()">
-</div>
-<span data-price="120"></span>
+    <img src="https://raw.githubusercontent.com/USERNAME/REPO/main/saline%20(4).jpeg">
+    <div class="qty">تعداد سفارش:</div>
+    <input type="number" min="1" value="1">
+    <br>
+    <button>افزودن به سفارش</button>
 </div>
 
 <div class="product">
-<img src="paracetamol.jpg">
-<div>
-Paracetamol 500mg<br>
-<input type="number" min="0" value="0" onchange="calc()">
-</div>
-<span data-price="50"></span>
-</div>
-
-<p class="total">مجموع: <span id="total">0</span> افغانی</p>
-<button onclick="order()">سفارش کلی</button>
+    <img src="https://raw.githubusercontent.com/USERNAME/REPO/main/Paracetamo%20(1).jpeg">
+    <div class="qty">تعداد سفارش:</div>
+    <input type="number" min="1" value="1">
+    <br>
+    <button>افزودن به سفارش</button>
 </div>
 
-<div class="card">
-<h3>⭐ پیشنهادات</h3>
-<textarea id="suggest" placeholder="پیشنهاد خود را بنویسید"></textarea>
-<button class="secondary" onclick="sendSuggest()">ارسال پیشنهاد</button>
+<div class="product">
+    <img src="https://raw.githubusercontent.com/USERNAME/REPO/main/amoxicillin%20(1).jpeg">
+    <div class="qty">تعداد سفارش:</div>
+    <input type="number" min="1" value="1">
+    <br>
+    <button>افزودن به سفارش</button>
 </div>
-
-<script>
-function calc(){
-  let total=0;
-  document.querySelectorAll('.product').forEach(p=>{
-    let qty=p.querySelector('input').value;
-    let price=p.querySelector('span').dataset.price;
-    total+=qty*price;
-  });
-  document.getElementById('total').innerText=total;
-}
-
-function order(){
-  let total=parseInt(document.getElementById('total').innerText);
-  if(total<3000){
-    alert('حداقل مبلغ سفارش ۳۰۰۰ افغانی است');
-    return;
-  }
-  alert('سفارش شما با موفقیت ثبت شد');
-}
-
-function sendSuggest(){
-  let s=document.getElementById('suggest').value;
-  if(s.trim()===''){
-    alert('لطفاً پیشنهاد خود را بنویسید');
-    return;
-  }
-  alert('پیشنهاد شما ثبت شد، سپاس!');
-}
-</script>
 
 </body>
 </html>
