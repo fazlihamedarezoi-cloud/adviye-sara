@@ -9,28 +9,21 @@
 body{
   margin:0;
   font-family:tahoma;
-  background:linear-gradient(135deg,#e9f2ff,#fefefe);
   direction:rtl;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:#333;
 }
 
 header{
-  background:linear-gradient(135deg,#0d6efd,#084298);
-  color:white;
-  padding:25px 15px;
+  background:rgba(255,255,255,.95);
+  padding:25px;
   text-align:center;
   border-bottom-left-radius:30px;
   border-bottom-right-radius:30px;
 }
 
-header h1{
-  margin:0;
-  font-size:26px;
-}
-header p{
-  margin-top:8px;
-  font-size:14px;
-  opacity:.9;
-}
+header h1{margin:0;color:#0d6efd}
+header p{margin-top:8px;color:#555}
 
 .container{
   max-width:1200px;
@@ -41,41 +34,35 @@ header p{
 .card{
   background:white;
   border-radius:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,.12);
-  margin-bottom:22px;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
   padding:15px;
+  margin-bottom:20px;
   text-align:center;
-  transition:.3s;
-}
-.card:hover{
-  transform:translateY(-4px);
 }
 
 .card img{
   width:100%;
   max-height:220px;
   object-fit:contain;
-  margin-bottom:10px;
 }
 
-.qty-box{
+.qty{
   display:flex;
   justify-content:center;
   align-items:center;
   margin-top:10px;
 }
 
-.qty-box button{
-  width:44px;
-  height:44px;
-  font-size:22px;
+.qty button{
+  width:42px;height:42px;
   border:none;
   background:#0d6efd;
   color:white;
+  font-size:22px;
   border-radius:12px;
 }
 
-.qty-box input{
+.qty input{
   width:70px;
   text-align:center;
   font-size:20px;
@@ -84,64 +71,50 @@ header p{
   border:1px solid #ccc;
 }
 
-.price{
-  font-weight:bold;
-  margin-top:12px;
-  color:#198754;
-}
-
 .section{
   background:white;
-  padding:18px;
   border-radius:20px;
+  padding:18px;
   margin-top:22px;
-  box-shadow:0 10px 25px rgba(0,0,0,.1);
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 
-.section h3{
-  margin-top:0;
-  color:#0d6efd;
-}
+.section h3{margin-top:0;color:#0d6efd}
 
-input, textarea{
+input,textarea{
   width:100%;
   padding:14px;
   margin-top:10px;
-  font-size:16px;
   border-radius:14px;
   border:1px solid #ccc;
+  font-size:16px;
   text-align:center;
 }
 
 .total{
-  font-size:20px;
-  margin-top:18px;
-  font-weight:bold;
-  color:#198754;
   text-align:center;
+  font-size:20px;
+  margin-top:20px;
+  color:#198754;
+  font-weight:bold;
 }
 
 .order-btn{
   width:100%;
   padding:16px;
-  font-size:18px;
+  margin-top:16px;
   border:none;
   border-radius:18px;
-  margin-top:16px;
+  font-size:18px;
   background:#25D366;
   color:white;
-  box-shadow:0 6px 15px rgba(0,0,0,.2);
-}
-
-.sms-btn{
-  background:#0d6efd;
 }
 
 footer{
   text-align:center;
-  font-size:14px;
   padding:20px;
-  color:#555;
+  color:white;
+  opacity:.8;
 }
 </style>
 </head>
@@ -157,117 +130,117 @@ footer{
 
 <!-- محصولات -->
 <div class="card">
-  <h3>Amoxicillin 500mg</h3>
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/amoxicillin%20%281%29.jpeg">
-  <div class="qty-box">
-    <button onclick="changeQty(0,-1)">−</button>
-    <input id="q0" value="0">
-    <button onclick="changeQty(0,1)">+</button>
-  </div>
-  <div class="price">100 افغانی</div>
+<h3>Amoxicillin 500mg</h3>
+<img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/amoxicillin%20%281%29.jpeg">
+<div class="qty">
+<button onclick="qty(0,-1)">−</button>
+<input id="q0" value="0">
+<button onclick="qty(0,1)">+</button>
+</div>
 </div>
 
 <div class="card">
-  <h3>Ciprofloxacin 500mg</h3>
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Cipro%20%287%29%20%281%29.jpeg">
-  <div class="qty-box">
-    <button onclick="changeQty(1,-1)">−</button>
-    <input id="q1" value="0">
-    <button onclick="changeQty(1,1)">+</button>
-  </div>
-  <div class="price">120 افغانی</div>
+<h3>Ciprofloxacin 500mg</h3>
+<img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Cipro%20%287%29%20%281%29.jpeg">
+<div class="qty">
+<button onclick="qty(1,-1)">−</button>
+<input id="q1" value="0">
+<button onclick="qty(1,1)">+</button>
+</div>
 </div>
 
 <div class="card">
-  <h3>Paracetamol 500mg</h3>
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Paracetamo%20%281%29.jpeg">
-  <div class="qty-box">
-    <button onclick="changeQty(2,-1)">−</button>
-    <input id="q2" value="0">
-    <button onclick="changeQty(2,1)">+</button>
-  </div>
-  <div class="price">50 افغانی</div>
+<h3>Paracetamol 500mg</h3>
+<img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/Paracetamo%20%281%29.jpeg">
+<div class="qty">
+<button onclick="qty(2,-1)">−</button>
+<input id="q2" value="0">
+<button onclick="qty(2,1)">+</button>
+</div>
 </div>
 
 <div class="card">
-  <h3>Normal Saline</h3>
-  <img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/saline%20%284%29.jpeg">
-  <div class="qty-box">
-    <button onclick="changeQty(3,-1)">−</button>
-    <input id="q3" value="0">
-    <button onclick="changeQty(3,1)">+</button>
-  </div>
-  <div class="price">30 افغانی</div>
+<h3>Normal Saline</h3>
+<img src="https://raw.githubusercontent.com/fazlihamedarezoi-cloud/adviye-sara/main/saline%20%284%29.jpeg">
+<div class="qty">
+<button onclick="qty(3,-1)">−</button>
+<input id="q3" value="0">
+<button onclick="qty(3,1)">+</button>
+</div>
+</div>
+
+<!-- محصولات سفارشی -->
+<div class="section">
+<h3>محصولات انتخاب‌شده</h3>
+<div id="cart">هنوز محصولی انتخاب نشده</div>
 </div>
 
 <!-- مشخصات مشتری -->
 <div class="section">
-  <h3>مشخصات مشتری</h3>
-  <input id="name" placeholder="نام مشتری">
-  <input id="phone" placeholder="شماره تماس">
-  <textarea id="address" placeholder="آدرس مشتری"></textarea>
-</div>
-
-<!-- پیشنهادات -->
-<div class="section">
-  <h3>پیشنهادات شما</h3>
-  <textarea id="suggest" placeholder="نظر یا پیشنهاد شما"></textarea>
+<h3>مشخصات مشتری (اجباری)</h3>
+<input id="name" placeholder="نام مشتری">
+<input id="phone" placeholder="شماره تماس">
+<textarea id="address" placeholder="آدرس مشتری"></textarea>
 </div>
 
 <div class="total" id="total">مبلغ کل: 0 افغانی</div>
 
-<button class="order-btn" onclick="sendOrder()">ارسال سفارش با واتساپ</button>
-<button class="order-btn sms-btn" onclick="sendSMS()">ارسال سفارش با پیامک</button>
+<button class="order-btn" onclick="order()">ارسال سفارش با واتساپ</button>
 
 </div>
 
 <footer>© Adviye Sara</footer>
 
 <script>
-const prices=[100,120,50,30];
-const whatsappNumber="93779369926";
+const products=[
+{name:"Amoxicillin 500mg",price:100},
+{name:"Ciprofloxacin 500mg",price:120},
+{name:"Paracetamol 500mg",price:50},
+{name:"Normal Saline",price:30}
+];
+const whatsapp="93779369926";
 
-function changeQty(i,val){
-  let q=document.getElementById("q"+i);
-  let n=parseInt(q.value)+val;
-  if(n<0)n=0;
-  q.value=n;
-  calc();
+function qty(i,v){
+ let q=document.getElementById("q"+i);
+ let n=parseInt(q.value)+v;
+ if(n<0)n=0;
+ q.value=n;
+ update();
 }
 
-function calc(){
-  let sum=0;
-  for(let i=0;i<4;i++){
-    sum+=parseInt(document.getElementById("q"+i).value)*prices[i];
+function update(){
+ let sum=0,cart="";
+ for(let i=0;i<products.length;i++){
+  let q=parseInt(document.getElementById("q"+i).value);
+  if(q>0){
+   cart+=`• ${products[i].name} × ${q}<br>`;
+   sum+=q*products[i].price;
   }
-  document.getElementById("total").innerText="مبلغ کل: "+sum+" افغانی";
-  return sum;
+ }
+ document.getElementById("cart").innerHTML=cart||"هنوز محصولی انتخاب نشده";
+ document.getElementById("total").innerText="مبلغ کل: "+sum+" افغانی";
+ return sum;
 }
 
-function sendOrder(){
-  let sum=calc();
-  if(sum<3000){
-    alert("حداقل خرید ۳۰۰۰ افغانی است");
-    return;
-  }
-  let msg=
-`سفارش جدید
-نام: ${name.value}
-شماره: ${phone.value}
-آدرس: ${address.value}
-مبلغ کل: ${sum} افغانی`;
+function order(){
+ let sum=update();
+ if(!name.value||!phone.value||!address.value){
+  alert("لطفاً تمام مشخصات مشتری را وارد کنید");
+  return;
+ }
+ if(sum<3000){
+  alert("حداقل خرید ۳۰۰۰ افغانی است");
+  return;
+ }
 
-  window.open(`https://wa.me/${whatsappNumber}?text=`+encodeURIComponent(msg));
-}
+ let msg="📦 سفارش جدید\n\n";
+ for(let i=0;i<products.length;i++){
+  let q=parseInt(document.getElementById("q"+i).value);
+  if(q>0) msg+=`• ${products[i].name} × ${q}\n`;
+ }
+ msg+=`\n👤 نام: ${name.value}\n📞 شماره: ${phone.value}\n📍 آدرس: ${address.value}\n\n💰 مبلغ کل: ${sum} افغانی`;
 
-function sendSMS(){
-  let sum=calc();
-  if(sum<3000){
-    alert("حداقل خرید ۳۰۰۰ افغانی است");
-    return;
-  }
-  let msg="سفارش جدید | مبلغ "+sum+" افغانی";
-  window.location.href="sms:0779369926?body="+encodeURIComponent(msg);
+ window.open("https://wa.me/"+whatsapp+"?text="+encodeURIComponent(msg));
 }
 </script>
 
