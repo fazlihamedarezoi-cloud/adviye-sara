@@ -26,6 +26,22 @@ header h1{
   color:#f0ad4e; /* رنگ جدید و شیک */
   font-size:36px; /* اندازه بزرگتر */
   font-weight: bold;
+  animation: moveText 3s ease-in-out infinite; /* انیمیشن متحرک */
+}
+
+@keyframes moveText {
+  0% {
+    transform: translateX(-100%); /* از چپ شروع شود */
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
 
 header p{
