@@ -21,8 +21,18 @@ header{
   border-bottom-right-radius:30px;
 }
 
-header h1{margin:0;color:#0d6efd}
-header p{margin-top:8px;color:#555}
+header h1{
+  margin:0;
+  color:#f0ad4e; /* رنگ جدید و شیک */
+  font-size:36px; /* اندازه بزرگتر */
+  font-weight: bold;
+}
+
+header p{
+  margin-top:8px;
+  color:#fff;
+  font-size:18px;
+}
 
 .container{
   max-width:1200px;
@@ -142,6 +152,15 @@ footer{
   border:1px solid #ccc;
   font-size:16px;
   margin-top:12px;
+}
+
+input,textarea{
+  box-sizing: border-box; /* اصلاح برای تراز شدن */
+}
+
+.container .card, .section{
+  padding: 15px; /* اصلاح اندازه padding */
+  margin-top: 15px; /* اصلاح margin */
 }
 
 </style>
