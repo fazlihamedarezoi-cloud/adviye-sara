@@ -117,12 +117,33 @@ input,textarea{
 .whatsapp{background:#25D366}
 .sms{background:#0d6efd}
 
+.suggestion-btn {
+  width:100%;
+  padding:16px;
+  margin-top:16px;
+  border:none;
+  border-radius:18px;
+  font-size:18px;
+  background:#FFC107;
+  color:white;
+}
+
 footer{
   text-align:center;
   padding:20px;
   color:white;
   opacity:.8;
 }
+
+#suggestions {
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  font-size:16px;
+  margin-top:12px;
+}
+
 </style>
 </head>
 
@@ -191,6 +212,13 @@ footer{
 <button class="order-btn whatsapp" onclick="sendWhatsApp()">ارسال با واتساپ</button>
 <button class="order-btn sms" onclick="sendSMS()">ارسال با پیامک</button>
 
+<!-- پیشنهادات مشتری -->
+<div class="section">
+<h3>پیشنهادات</h3>
+<textarea id="suggestions" placeholder="پیشنهادات خود را بنویسید"></textarea>
+<button class="suggestion-btn" onclick="sendSuggestions()">ارسال پیشنهادات</button>
+</div>
+
 </div>
 
 <footer>© Adviye Sara</footer>
@@ -252,6 +280,16 @@ function sendSMS(){
  if(!validate())return;
  if(sum<3000){alert("حداقل خرید ۳۰۰۰ افغانی است");return;}
  window.location.href="sms:0779369926?body="+encodeURIComponent(buildMessage(sum));
+}
+
+// ارسال پیشنهادات
+function sendSuggestions(){
+ let suggestions = document.getElementById("suggestions").value;
+ if(suggestions.trim() === ""){
+  alert("لطفاً پیشنهادات خود را وارد کنید");
+  return;
+ }
+ alert("پیشنهاد شما ارسال شد: " + suggestions);
 }
 </script>
 
